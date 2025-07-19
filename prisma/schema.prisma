@@ -13,3 +13,32 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum TaskStatus {
+  pending
+  inProgress
+  completed
+}
+
+model Group {
+  id String @id @default(cuid())
+  title String
+  image String?
+
+  tasks Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id String @id @default(cuid())
+  title String
+  status TaskStatus @default(pending)
+
+  group Group @relation(fields: [groupId], references: [id])
+  groupId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
