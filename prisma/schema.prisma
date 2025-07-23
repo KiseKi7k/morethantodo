@@ -36,7 +36,7 @@ model Task {
   title String
   status TaskStatus @default(pending)
 
-  group Group @relation(fields: [groupId], references: [id])
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId String
 
   createdAt DateTime @default(now())
