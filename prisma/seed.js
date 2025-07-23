@@ -1,18 +1,8 @@
-import { PrismaClient } from "../lib/generated/prisma";
+const { PrismaClient } = require("../lib/generated/prisma");
 
 const prisma = new PrismaClient();
 
-type Group = {
-  title: string;
-  image?: string;
-};
-
-type Task = {
-  title: string;
-  status: "pending" | "inProgress" | "completed";
-};
-
-const groupToCreate: Group[] = [
+const groupToCreate = [
   {
     title: "Study",
     image: "https://images6.alphacoders.com/117/1172068.jpg",
@@ -22,7 +12,7 @@ const groupToCreate: Group[] = [
   },
 ];
 
-const studyTaskToAdd: Task[] = [
+const studyTaskToAdd = [
   {
     title: "Math",
     status: "pending",
@@ -41,7 +31,7 @@ const studyTaskToAdd: Task[] = [
   },
 ];
 
-const projectsTaskToAdd: Task[] = [
+const projectsTaskToAdd = [
   {
     title: "Finanace",
     status: "pending",
@@ -89,7 +79,7 @@ const projectsTaskToAdd: Task[] = [
 
       if (!projectsGroup) throw new Error("Error no projects group");
 
-      for (const task of studyTaskToAdd) {
+      for (const task of projectsTaskToAdd) {
         await tx.task.create({
           data: {
             ...task,
