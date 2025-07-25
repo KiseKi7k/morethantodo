@@ -1,4 +1,7 @@
+import CreateGroupModal from "@/components/CreateGroupModal";
 import GroupContainer from "@/components/GroupContainer";
+
+import { CirclePlus } from "lucide-react";
 
 export default function Home() {
   return (
@@ -7,7 +10,10 @@ export default function Home() {
         More Than To Do
       </div>
 
-      <div className="ml-12 font-bold text-4xl text-primary">| Groups</div>
+      <div className="flex flex-row items-baseline gap-4 ml-12">
+        <span className="font-bold text-4xl text-primary">| Groups</span>
+        <CreateGroupModal />
+      </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-12 mx-auto">
         <GroupContainer />

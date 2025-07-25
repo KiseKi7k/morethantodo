@@ -16,9 +16,9 @@ const GroupContainer = () => {
             Title
           </p>
           <div className="flex flex-row gap-3">
-            <StatuCounter color="green-500" count={20} />
-            <StatuCounter color="yellow-500" count={20} />
-            <StatuCounter color="gray-500" count={20} />
+            <StatusCounter color="green-500" count={20} />
+            <StatusCounter color="yellow-500" count={20} />
+            <StatusCounter color="gray-500" count={20} />
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@ const GroupContainer = () => {
 
 export default GroupContainer;
 
-const StatuCounter = ({ color, count }: { color: string; count: number }) => {
+const StatusCounter = ({ color, count }: { color: string; count: number }) => {
   return (
     <div
       className="flex flex-row text-sm lg:text-lg items-center font-semibold text-primary gap-1
