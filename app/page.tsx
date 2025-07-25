@@ -7,11 +7,7 @@ import { CirclePlus } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-12 h-screen w-screen bg-background">
-      <div className="w-screen h-20 bg-primary flex justify-center items-center font-semibold text-5xl text-white">
-        More Than To Do
-      </div>
-
+    <div className="mt-12 flex flex-col gap-12 h-screen w-screen bg-background">
       <div className="flex flex-row items-baseline gap-4 ml-12">
         <span className="font-bold text-4xl text-primary">| Groups</span>
         <CreateGroupModal />
