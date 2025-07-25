@@ -1,5 +1,7 @@
 import CreateGroupModal from "@/components/CreateGroupModal";
 import GroupContainer from "@/components/GroupContainer";
+import { groupsPage } from "@/lib/mockData";
+import { group } from "console";
 
 import { CirclePlus } from "lucide-react";
 
@@ -16,9 +18,9 @@ export default function Home() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-12 mx-auto">
-        <GroupContainer />
-        <GroupContainer />
-        <GroupContainer />
+        {groupsPage.map((g) => (
+          <GroupContainer group={g} key={g.id} />
+        ))}
       </div>
     </div>
   );
