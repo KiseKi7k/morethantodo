@@ -9,7 +9,7 @@ export type GroupPageType = {
   };
 };
 
-export type Task = {
+export type TaskType = {
   id: string;
   title: string;
   status: "pending" | "inProgress" | "completed";
@@ -18,7 +18,7 @@ export type Task = {
 export type GroupTasks = {
   id: string;
   title: string;
-  tasks: Task[];
+  tasks: TaskType[];
 };
 
 export const groupsPage: GroupPageType[] = [
@@ -63,6 +63,11 @@ export const groupTasks: GroupTasks[] = [
         id: "3",
         title: "Oreo",
         status: "completed",
+      },
+      {
+        id: "5",
+        title: "Thai",
+        status: "pending",
       },
     ],
   },
