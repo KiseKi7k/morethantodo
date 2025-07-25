@@ -1,13 +1,10 @@
 import CreateGroupModal from "@/components/CreateGroupModal";
 import GroupContainer from "@/components/GroupContainer";
 import { groupsPage } from "@/lib/mockData";
-import { group } from "console";
-
-import { CirclePlus } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="mt-12 flex flex-col gap-12 h-screen w-screen bg-background">
+    <div className="flex flex-col gap-12 h-screen w-screen bg-background">
       <div className="flex flex-row items-baseline gap-4 ml-12">
         <span className="font-bold text-4xl text-primary">| Groups</span>
         <CreateGroupModal />

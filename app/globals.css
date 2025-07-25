@@ -3,9 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  --color-p: #40513b;
-  --color-bg: #EDF1D6;
+@theme inline {
+  --color-accent-1: #9DC08B;
+  --color-accent-2: #609966;
+  --color-accent-3: #DED8AF;
 }
 
 @theme inline {
@@ -30,8 +31,6 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
