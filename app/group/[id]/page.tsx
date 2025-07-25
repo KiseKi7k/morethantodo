@@ -1,5 +1,7 @@
 import TasksContainer from "@/components/TasksContainer";
 import { groupTasks } from "@/lib/mockData";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 async function TasksPage({ params }: { params: { id: string } }) {
@@ -12,9 +14,12 @@ async function TasksPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex flex-1 flex-col gap-12">
-      <span className="font-bold text-4xl text-primary ml-12">
-        | {group?.title}
-      </span>
+      <div className="flex flex-row items-center gap-2 font-bold text-4xl text-primary ml-12">
+        <Link href='/' className="cursor-pointer">
+          <ArrowLeft size={30} />
+        </Link>
+        {group?.title}
+      </div>
 
       <div className="flex flex-1">
         <div className="grid grid-cols-3 gap-20 mx-auto h-full">
