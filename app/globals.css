@@ -4,13 +4,20 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-accent-1: #9DC08B;
+  --color-accent-1: #9dc08b;
   --color-accent-2: #609966;
-  --color-accent-3: #DED8AF;
+  --color-accent-3: #ded8af;
 }
 
+.task-dropdown-item {
+  @apply flex flex-row gap-2 p-2 items-center rounded-sm cursor-pointer transition-all duration-200 ease-out hover:bg-accent-1/60;
+}
+
+/* group flex flex-row gap-2 p-2 items-center rounded-sm cursor-pointer transition-all duration-200 ease-out hover:bg-accent-1/60; */
+
+
 @theme inline {
-  --color-background: #EDF1D6;
+  --color-background: #edf1d6;
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
