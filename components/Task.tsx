@@ -6,7 +6,7 @@ import {
   Pencil,
   Trash,
 } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,16 +14,38 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import {
   DropdownMenuItem,
   DropdownMenuSubTrigger,
-} from "@radix-ui/react-dropdown-menu";
+} from "./ui/dropdown-menu";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import { Label } from "@radix-ui/react-label";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 const Task = ({ task }: { task: TaskType }) => {
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [editedTitle, setEditedTitle] = useState("");
+
   const handleMoveTask = () => {};
 
-  const handleEdit = () => {};
+  const handleOpenEditDialog = () => {
+    setIsEditDialogOpen(true);
+    setEditedTitle(task.title);
+  };
+
+  const handleEdit = () => {
+    if (task.title === editedTitle) return;
+  };
 
   const handleDelete = () => {};
 
@@ -76,17 +98,65 @@ const Task = ({ task }: { task: TaskType }) => {
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
-            <DropdownMenuItem className="task-dropdown-item">
-              <Pencil size={15} />
+
+            <DropdownMenuItem
+              className="task-dropdown-item"
+              onClick={handleOpenEditDialog}
+            >
+              <Pencil size={15} className="text-black" />
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem className="task-dropdown-item">
-              <Trash size={15} />
+            <DropdownMenuItem
+              className="task-dropdown-item"
+              onClick={() => setIsDeleteDialogOpen(true)}
+            >
+              <Trash size={15} className="text-black" />
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="bg-background">
+          <DialogHeader>
+            <DialogTitle className="font-bold">Edit task</DialogTitle>
+          </DialogHeader>
+
+          <Label className="font-semibold">Title</Label>
+          <Input
+            id="title"
+            type="text"
+            onChange={(e) => setEditedTitle(e.target.value)}
+            value={editedTitle}
+            placeholder="Title"
+            className="bg-accent-3/50"
+          />
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button onClick={handleEdit}>Edit</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="bg-background">
+          <DialogHeader>
+            <DialogTitle className="font-bold">Delete Task</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            Are you sure to delete this task?
+          </DialogDescription>
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button onClick={handleDelete}>Delete</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

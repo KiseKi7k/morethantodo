@@ -3,7 +3,6 @@
 import { TaskType } from "@/lib/mockData";
 import React from "react";
 import { ScrollArea } from "./ui/scroll-area";
-import { EllipsisVertical } from "lucide-react";
 import Task from "./Task";
 
 interface TasksContainerProps {

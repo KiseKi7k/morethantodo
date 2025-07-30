@@ -5,7 +5,8 @@ import Link from "next/link";
 import React from "react";
 
 async function TasksPage({ params }: { params: { id: string } }) {
-  const group = groupTasks.find((g) => g.id === params.id);
+  const { id } = params;
+  const group = groupTasks.find((g) => g.id === id);
   const tasks = group?.tasks;
 
   const pendingTasks = tasks?.filter((t) => t.status == "pending");
@@ -15,7 +16,7 @@ async function TasksPage({ params }: { params: { id: string } }) {
   return (
     <div className="flex flex-1 flex-col gap-12">
       <div className="flex flex-row items-center gap-2 font-bold text-4xl text-primary ml-12">
-        <Link href='/' className="cursor-pointer">
+        <Link href="/" className="cursor-pointer">
           <ArrowLeft size={30} />
         </Link>
         {group?.title}
