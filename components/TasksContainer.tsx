@@ -4,6 +4,7 @@ import { TaskType } from "@/lib/mockData";
 import React from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import Task from "./Task";
+import CreateTaskModal from "./CreateTaskModal";
 
 interface TasksContainerProps {
   tasks: TaskType[];
@@ -17,6 +18,7 @@ const TasksContainer = ({ tasks, color, status }: TasksContainerProps) => {
       <div className="flex flex-row gap-2 text-primary text-3xl font-semibold p-3">
         <span className={`text-${color}`}>•</span>
         {status}
+        <CreateTaskModal status={status} />
       </div>
 
       <ScrollArea className="h-[600px] w-full overflow-clip">

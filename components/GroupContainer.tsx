@@ -19,7 +19,7 @@ const GroupContainer = ({ group }: { group: GroupPageType }) => {
           />
           <div className="absolute float bottom-0 bg-white/50 w-full h-[30%] z-10 p-2 lg:p-4">
             <p className="font-semibold text-primary text-xl lg:text-2xl">
-              Title
+              {group.title}
             </p>
             <div className="flex flex-row gap-3">
               <StatusCounter color="gray-500" count={group.count.pending} />

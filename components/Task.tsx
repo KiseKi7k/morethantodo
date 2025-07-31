@@ -24,7 +24,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "./ui/dialog";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "./ui/button";
@@ -88,7 +87,6 @@ const Task = ({ task }: { task: TaskType }) => {
               <DropdownMenuSubTrigger className="task-dropdown-item">
                 <ArrowRightFromLine size={15} />
                 Move
-                <ChevronRight size={15} className="ml-auto" />
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent className="p-2 bg-background border-2 border-accent-3">
