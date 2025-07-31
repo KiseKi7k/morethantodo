@@ -23,7 +23,7 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { getGroups } from "@/actions/group.action";
+import { deleteGroup, editGroup, getGroups } from "@/actions/group.action";
 
 type EditGroupFormType = {
   title: string;
@@ -50,10 +50,21 @@ const GroupContainer = ({ group }: { group: Group }) => {
     setIsEditDialogOpen(true);
   };
 
-  const handleEditGroup = () => {
+  const handleEditGroup = async () => {
     if (!editedGroup.title.trim()) return;
+
+    const formData = new FormData();
+    Object.entries(editedGroup).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const result = await editGroup(formData, group.id);
+    if (result.success) setIsDeleteDialogOpen(false);
   };
-  const handleDeleteGroup = () => {};
+  const handleDeleteGroup = async () => {
+    const res = await deleteGroup(group.id);
+    if (res.success) setIsDeleteDialogOpen(false);
+  };
 
   const isEditButtonDisabled = () => {
     return !editedGroup.title.trim();
