@@ -1,13 +1,64 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { GroupPageType } from "@/lib/mockData";
 import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { EllipsisVertical, Pencil, Trash } from "lucide-react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+
+type EditGroupFormType = {
+  title: string;
+  image: string;
+};
 
 const GroupContainer = ({ group }: { group: GroupPageType }) => {
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+  const [editedGroup, setEditedGroup] = useState<EditGroupFormType>({
+    title: "",
+    image: "",
+  });
+
+  const handleOpenEditDialog = () => {
+    setEditedGroup({
+      title: group.title,
+      image: group.image || "",
+    });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleEditGroup = () => {
+    if (!editedGroup.title.trim()) return;
+  };
+  const handleDeleteGroup = () => {};
+
+  const isEditButtonDisabled = () => {
+    return !editedGroup.title.trim();
+  };
+
   return (
     <div className="group hover:scale-[105%] aspect-[1.5/1] h-50 lg:h-75 overflow-hidden rounded-xl border-2 transition-all duration-200 ease-out">
-      <Link href={`/group/${group.id}`}>
-        <div className="relative h-full w-full">
+      <div className="relative h-full w-full">
+        <Link href={`/group/${group.id}`}>
           <Image
             src={
               group.image ||
@@ -30,8 +81,90 @@ const GroupContainer = ({ group }: { group: GroupPageType }) => {
               <StatusCounter color="green-500" count={group.count.completed} />
             </div>
           </div>
+        </Link>
+        <div className="absolute top-2 right-[-4px] cursor-pointer">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <EllipsisVertical />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="p-2 bg-background border-2 border-accent-3">
+              <DropdownMenuItem
+                className="task-dropdown-item"
+                onClick={handleOpenEditDialog}
+              >
+                <Pencil size={15} className="text-black" />
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="task-dropdown-item"
+                onClick={() => setIsDeleteDialogOpen(true)}
+              >
+                <Trash size={15} className="text-black" />
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-      </Link>
+      </div>
+
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="bg-background">
+          <DialogHeader>
+            <DialogTitle className="font-bold">Edit Group</DialogTitle>
+          </DialogHeader>
+
+          <Label>Title</Label>
+          <Input
+            id="title"
+            type="text"
+            onChange={(e) =>
+              setEditedGroup((prev) => ({ ...prev, title: e.target.value }))
+            }
+            value={editedGroup.title}
+            placeholder="Title"
+          />
+          <Label>
+            Image <span className="font-light">(Optional)</span>
+          </Label>
+          <Input
+            id="image"
+            type="text"
+            onChange={(e) =>
+              setEditedGroup((prev) => ({ ...prev, image: e.target.value }))
+            }
+            value={editedGroup.image}
+            placeholder="Image url"
+          />
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button
+                onClick={handleEditGroup}
+                disabled={isEditButtonDisabled()}
+              >
+                Edit
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="bg-background">
+          <DialogHeader>
+            <DialogTitle className="font-bold">Delete Group</DialogTitle>
+          </DialogHeader>
+          <DialogDescription className="text-black">
+            Are you sure to delete this group?
+          </DialogDescription>
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button onClick={handleDeleteGroup}>Delete</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
