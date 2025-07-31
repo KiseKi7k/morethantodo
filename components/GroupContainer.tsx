@@ -23,13 +23,17 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { getGroups } from "@/actions/group.action";
 
 type EditGroupFormType = {
   title: string;
   image: string;
 };
 
-const GroupContainer = ({ group }: { group: GroupPageType }) => {
+type Groups = Awaited<ReturnType<typeof getGroups>>;
+type Group = Groups[number];
+
+const GroupContainer = ({ group }: { group: Group }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
@@ -73,12 +77,12 @@ const GroupContainer = ({ group }: { group: GroupPageType }) => {
               {group.title}
             </p>
             <div className="flex flex-row gap-3">
-              <StatusCounter color="gray-500" count={group.count.pending} />
+              <StatusCounter color="gray-500" count={group._count.pending} />
               <StatusCounter
                 color="yellow-500"
-                count={group.count.inProgress}
+                count={group._count.inProgress}
               />
-              <StatusCounter color="green-500" count={group.count.completed} />
+              <StatusCounter color="green-500" count={group._count.completed} />
             </div>
           </div>
         </Link>
