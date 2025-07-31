@@ -1,6 +1,5 @@
 import CreateGroupModal from "@/components/CreateGroupModal";
 import GroupContainer from "@/components/GroupContainer";
-import { groupsPage } from "@/lib/mockData";
 import { getGroups } from "@/actions/group.action";
 
 export default async function Home() {

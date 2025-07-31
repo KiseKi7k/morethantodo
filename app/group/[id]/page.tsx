@@ -1,12 +1,16 @@
+import { getGroupWithTasks } from "@/actions/task.action";
 import TasksContainer from "@/components/TasksContainer";
-import { groupTasks } from "@/lib/mockData";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import React from "react";
 
 async function TasksPage({ params }: { params: { id: string } }) {
   const { id } = params;
-  const group = groupTasks.find((g) => g.id === id);
+  const group = await getGroupWithTasks(id);
+
+  if (!group) notFound();
+
   const tasks = group?.tasks;
 
   const pendingTasks = tasks?.filter((t) => t.status == "pending");

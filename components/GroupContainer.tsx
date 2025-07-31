@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { GroupPageType } from "@/lib/mockData";
 import Link from "next/link";
 import {
   DropdownMenu,
