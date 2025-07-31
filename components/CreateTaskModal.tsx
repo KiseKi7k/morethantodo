@@ -20,7 +20,7 @@ const CreateTaskModal = ({ status }: { status: string }) => {
     return title.trim() === "";
   };
 
-  const handleCreate = () => {};
+  const handleCreate = async () => {};
 
   return (
     <div>

@@ -13,6 +13,7 @@ import { CirclePlus } from "lucide-react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { createGroup } from "@/actions/group.action";
 
 type FormType = {
   title: string;
@@ -20,23 +21,32 @@ type FormType = {
 };
 
 const CreateGroupModal = () => {
-  const [formData, setFormData] = useState<FormType>({
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [newGroup, setNewGroup] = useState<FormType>({
     title: "",
     image: "",
   });
 
-  const handleCreate = () => {
-    if (!formData.title || !formData.image) return;
+  const handleCreate = async () => {
+    if (!newGroup.title) return;
+
+    const formData = new FormData();
+    Object.entries(newGroup).forEach(([Key, value]) => {
+      formData.append(Key, value);
+    });
+
+    const res = await createGroup(formData);
+    if (res.success) setDialogOpen(false);
   };
 
   const isButtonDisabled = () => {
-    if (!formData.title) return true;
+    if (!newGroup.title) return true;
     return false;
   };
 
   return (
     <div>
-      <Dialog>
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogTrigger>
           <div className="hover:scale-105 transition-all duration-200 ease-out">
             <CirclePlus className="size-6" />
@@ -52,9 +62,9 @@ const CreateGroupModal = () => {
             id="title"
             type="text"
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, title: e.target.value }))
+              setNewGroup((prev) => ({ ...prev, title: e.target.value }))
             }
-            value={formData.title}
+            value={newGroup.title}
             placeholder="Title"
           />
           <Label>
@@ -64,14 +74,18 @@ const CreateGroupModal = () => {
             id="image"
             type="text"
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, image: e.target.value }))
+              setNewGroup((prev) => ({ ...prev, image: e.target.value }))
             }
-            value={formData.image}
+            value={newGroup.image}
             placeholder="Image url"
           />
 
           <DialogFooter>
-            <Button type="submit" disabled={isButtonDisabled()}>
+            <Button
+              type="submit"
+              disabled={isButtonDisabled()}
+              onClick={handleCreate}
+            >
               Create
             </Button>
           </DialogFooter>

@@ -81,3 +81,23 @@ export const deleteGroup = async (groupId: string) => {
     return { success: false, error: "Error delete group" };
   }
 };
+
+export const createGroup = async (formData: FormData) => {
+  try {
+    const title = formData.get("title") as string;
+    const image = formData.get("image ") as string;
+
+    const group = await prisma.group.create({
+      data: {
+        title,
+        image,
+      },
+    });
+
+    revalidatePath('/')
+    return { success: true, group };
+  } catch (error) {
+    console.error("Failed to create group", error);
+    return { success: false, error: "Error create group" };
+  }
+};
