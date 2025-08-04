@@ -29,24 +29,31 @@ import { Label } from "@radix-ui/react-label";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { deleteTask, editTask, moveTask } from "@/actions/task.action";
+import { TaskStatus } from "@/lib/generated/prisma";
 
 const Task = ({ task }: { task: TaskType }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
 
-  const handleMoveTask = () => {};
+  const handleMoveTask = async (status: TaskStatus) => {
+    const res = await moveTask(status, task.id)
+  };
+
+  const handleEdit = async () => {
+    if (task.title === editedTitle) return;
+    const res = await editTask(editedTitle, task.id)
+  };
+
+  const handleDelete = async () => {
+    const res = await deleteTask(task.id)
+  };
 
   const handleOpenEditDialog = () => {
     setIsEditDialogOpen(true);
     setEditedTitle(task.title);
   };
-
-  const handleEdit = () => {
-    if (task.title === editedTitle) return;
-  };
-
-  const handleDelete = () => {};
 
   const isMoveItemDisabled = (status: string) => {
     return task.status === status;
@@ -56,12 +63,12 @@ const Task = ({ task }: { task: TaskType }) => {
     status,
     text,
   }: {
-    status: string;
+    status: TaskStatus;
     text: string;
   }) => {
     return (
       <DropdownMenuItem
-        onClick={() => handleMoveTask()}
+        onClick={() => handleMoveTask(status)}
         disabled={isMoveItemDisabled(status)}
         className={`task-dropdown-item !p-1 ${
           isMoveItemDisabled(status)
