@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from "react";
 import {
   Dialog,
@@ -12,15 +14,26 @@ import { CirclePlus } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { addTask } from "@/actions/task.action";
+import { useParams } from "next/navigation";
 
 const CreateTaskModal = ({ status }: { status: string }) => {
   const [title, setTitle] = useState("");
+  const params = useParams();
+  const id = params.id as string;
 
   const isButtonDisabled = () => {
     return title.trim() === "";
   };
 
-  const handleCreate = async () => {};
+  const handleCreate = async () => {
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('status', status)
+
+    const res = await addTask(formData, id)
+    if (res.success) setTitle("")
+  };
 
   return (
     <div>

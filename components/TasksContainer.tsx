@@ -13,11 +13,14 @@ interface TasksContainerProps {
 }
 
 const TasksContainer = ({ tasks, color, status }: TasksContainerProps) => {
+  //TODO: Make this into function
+  const displayStatus = status == 'inProgress'? "In Progress" : status.slice(0, 1).toUpperCase() + status.slice(1)
+
   return (
     <div className="flex flex-col gap-4 bg-accent-1 h-[700px] w-[300px] border-6 border-accent-2 rounded-xl ">
       <div className="flex flex-row gap-2 text-primary text-3xl font-semibold p-3">
         <span className={`text-${color}`}>•</span>
-        {status}
+        {displayStatus}
         <CreateTaskModal status={status} />
       </div>
 

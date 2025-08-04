@@ -31,8 +31,8 @@ const CreateGroupModal = () => {
     if (!newGroup.title) return;
 
     const formData = new FormData();
-    Object.entries(newGroup).forEach(([Key, value]) => {
-      formData.append(Key, value);
+    Object.entries(newGroup).forEach(([key, value]) => {
+      formData.append(key, value);
     });
 
     const res = await createGroup(formData);

@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 async function TasksPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+  const { id } = await params;
   const group = await getGroupWithTasks(id);
 
   if (!group) notFound();
@@ -19,7 +19,7 @@ async function TasksPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex flex-1 flex-col gap-12">
-      <div className="flex flex-row items-center gap-2 font-bold text-4xl text-primary ml-12">
+      <div className="flex flexx-row items-center gap-2 font-bold text-4xl text-primary ml-12">
         <Link href="/" className="cursor-pointer">
           <ArrowLeft size={30} />
         </Link>
@@ -30,17 +30,17 @@ async function TasksPage({ params }: { params: { id: string } }) {
         <div className="grid grid-cols-3 gap-20 mx-auto h-full">
           <TasksContainer
             tasks={pendingTasks || []}
-            status="Pending"
+            status="pending"
             color="gray-500"
           />
           <TasksContainer
             tasks={inProgressTasks || []}
-            status="In Progress"
+            status="inProgress"
             color="yellow-500"
           />
           <TasksContainer
             tasks={completedTasks || []}
-            status="Completed"
+            status="completed"
             color="green-500"
           />
         </div>
